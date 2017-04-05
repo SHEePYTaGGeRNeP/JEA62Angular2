@@ -8,7 +8,7 @@ import { User } from "app/user";
   styleUrls: ['../app.component.css'],
   providers: [UserService]
 })
-export class AppComponent {
+export class UserComponent {
 
   userList: User[] = [];
 

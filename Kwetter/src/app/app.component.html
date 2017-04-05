@@ -1,6 +1,10 @@
 <h1>
   {{title}}
 </h1>
+<router-outlet></router-outlet>
+<a [routerLink]="['/user']">oke</a>
+
+
 <div>
   Click to load users <button (click)="loadUsers()">load</button><br/> {{userList | json}}
 </div>
