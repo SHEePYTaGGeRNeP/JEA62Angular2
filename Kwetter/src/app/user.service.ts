@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import 'rxjs/Rx';
 import { User } from "app/user";
 
 @Injectable()
@@ -16,6 +17,9 @@ export class UserService {
   }
 
   getAll(): Observable<User[]> {
+    console.log(`contacting API at: ${this.baseUrl}/users`);
+    console.log(this.http
+      .get(`${this.baseUrl}/users`, { headers: this.getHeaders() }))  ;
     let users$ = this.http
       .get(`${this.baseUrl}/users`, { headers: this.getHeaders() })
       .map(mapUsers);
@@ -25,7 +29,7 @@ export class UserService {
 
 function mapUsers(response: Response): User[] {
   // extracts a list of entities from the Response
-  return response.json().results.map(toUser);
+  return response.json().map(toUser);
 }
 
 function mapUser(response: Response): User {

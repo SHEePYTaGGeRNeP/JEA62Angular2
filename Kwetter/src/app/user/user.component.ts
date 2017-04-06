@@ -3,9 +3,9 @@ import { UserService } from "app/user.service";
 import { User } from "app/user";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: '../app.component.html',
-  styleUrls: ['../app.component.css'],
+  selector: 'app-user',
+  templateUrl: 'user.component.html',
+  styleUrls: ['user.component.css'],
   providers: [UserService]
 })
 export class UserComponent {

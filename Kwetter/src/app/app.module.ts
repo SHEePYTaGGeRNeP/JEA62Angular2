@@ -3,17 +3,16 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { UserComponent } from "app/user/user.component";
 import { routes } from "app/app.routes";
-//import { AnotherComponent  } from './Another.component';
-//import { routes } from './app.routes';
-//import { TweeterService } from "app/tweeter.service";
+import { AppComponent } from "app/app.component";
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    UserComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +22,7 @@ import { routes } from "app/app.routes";
       useHash: true
     })
   ],
-  providers: [UserComponent ],
+  providers: [UserComponent, TestComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
