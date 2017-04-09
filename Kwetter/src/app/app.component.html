@@ -1,6 +1,64 @@
-<h1>
-  {{title}}
-</h1>
-<router-outlet></router-outlet>
-<a [routerLink]="['/user']">user</a>
-<a [routerLink]="['/test']">test</a>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+  <title>#{profileController.username}'s profile</title>
+</head>
+
+<body>
+  <h1>
+    {{title}}
+  </h1>
+  <router-outlet></router-outlet>
+  <a [routerLink]="['/user']">user</a>
+  <a [routerLink]="['/test']">test</a>
+  <!--
+  <a href="${request.contextPath}/faces/dashboard.xhtml?username=#{profileController.username}">My dashboard</a>
+  <br /> S0
+  <h:panelGrid columns="2" cellpadding="5">
+    <h:outputText value="Photo" />
+    <h:outputText value="#{profileController.username}" />
+  </h:panelGrid>
+  S1
+  <p:dataTable id="list" var="tweet" value="#{profileController.lastTweets}">
+    <p:column headerText="username">
+      <h:outputText value="#{profileController.getUsernameFromTweet(tweet)}" />
+    </p:column>
+    <p:column headerText="tweet">
+      <h:outputText value="#{tweet.message}" />
+    </p:column>
+    <p:column headerText="time">
+      <h:outputText value="#{tweet.date}" />
+    </p:column>
+  </p:dataTable>
+  S2 - Details
+  <h:panelGrid columns="2" cellpadding="5">
+    <h:outputText value="Username" />
+    <h:outputText value="#{profileController.user.username}" />
+    <h:outputText value="Location" />
+    <h:outputText value="#{profileController.user.location}" />
+    <h:outputText value="Website" />
+    <a href="#{profileController.user.website}">#{profileController.user.website}</a>
+    <h:outputText value="Bio" />
+    <h:outputText value="#{profileController.user.bio}" />
+  </h:panelGrid>
+  S3
+  <h:panelGrid columns="2" cellpadding="5">
+    <h:outputText value="#{profileController.user.following.size()} following" />
+    <h:outputText value="#{profileController.user.followers.size()} followers" />
+    <h:outputText value="Tweets" />
+    <h:outputText value="#{profileController.tweetCount}" />
+  </h:panelGrid>
+  S4 - Following
+  <h:panelGrid columns="4" cellpadding="5">
+    <ui:repeat value="#{profileController.user.following}" var="following">
+      <a href="${request.contextPath}/faces/profile.xhtml?username=#{following.username}">#{following.username}</a>
+    </ui:repeat>
+  </h:panelGrid>
+  S4 - Followers
+  <h:panelGrid columns="4" cellpadding="5">
+    <ui:repeat value="#{profileController.user.followers}" var="follower">
+      <a href="${request.contextPath}/faces/profile.xhtml?username=#{follower.username}">#{follower.username}</a>
+    </ui:repeat>
+  </h:panelGrid>
+  !-->
+</body>
