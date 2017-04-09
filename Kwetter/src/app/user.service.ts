@@ -75,7 +75,7 @@ function toTweet(data: any): Tweet {
   let Tweet = <Tweet>({
     id: data.id,
     message: data.message,
-    posterId: data.posterId,
+    poster: data.poster,
     rating: data.rating,
     taggedUsers: data.taggedUsers,
     tags: data.tags,

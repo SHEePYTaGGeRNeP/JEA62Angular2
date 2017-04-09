@@ -3,7 +3,7 @@ import { User } from "app/user";
 export class Tweet {
 
     id: number;
-    posterId: number;
+    poster : User;
     taggedUsers: User[];
     tags: string[];
     message: string;
