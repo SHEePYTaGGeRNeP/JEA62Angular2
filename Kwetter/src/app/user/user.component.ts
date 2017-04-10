@@ -20,29 +20,25 @@ export class UserComponent {
 
   loaded: boolean = false;
 
-  tweetForm: FormGroup;
+
   ngOnInit() {
     this.loadUsers();
   }
 
   constructor(private UserService: UserService) {
-    // this.tweetForm = new FormGroup({
-    //   tweet: new FormControl('', [Validators.required]) // initial value
-    // });
   }
 
-
-  postTweet(tweetMessage : string) {
-    console.log("tweetmessage: "+ tweetMessage);
+  postTweet(tweetMessage: string) {
+    if (tweetMessage == '') return;
+    console.log("tweetmessage: " + tweetMessage);
     this.UserService.postTweet(this.viewingUser.id, tweetMessage).subscribe(r => this.loadTweets());
   }
-
 
   loadUsers() {
     this.UserService.getAll()
       .subscribe(u => {
         this.userList = u;
-        this.viewingUser = this.userList[0];
+        this.viewingUser = this.userList[getRandomInt(0, this.userList.length - 1)];
         this.loadTweets();
       });
   }
@@ -64,4 +60,8 @@ export class UserComponent {
       });
     }
   }
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

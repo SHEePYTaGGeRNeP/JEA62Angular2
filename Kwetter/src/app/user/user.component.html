@@ -3,14 +3,14 @@
   <br/>
 
   <!--<form (ngSubmit)="postTweet()" [formGroup]="tweetForm">-->
-    <label for="inputTweet">Tweet:</label>
-    <input type="text" id="inputTweet" [(ngModel)]="tweetMessage">
-    <!--<div *ngIf="tweetForm.get('tweet').dirty &&
+  <label for="inputTweet">Tweet:</label>
+  <input type="text" id="inputTweet" [(ngModel)]="tweetMessage">
+  <!--<div *ngIf="tweetForm.get('tweet').dirty &&
       tweetForm.get('tweet').invalid">
       This is invalid.
     </div>-->
-    <button (click)="postTweet(tweetMessage)">Post tweet</button>
-    <!--<button [disabled]="tweetForm.invalid" (click)="postTweet(tweetMessage)">Post tweet</button>-->
+  <button (click)="postTweet(tweetMessage)">Post tweet</button>
+  <!--<button [disabled]="tweetForm.invalid" (click)="postTweet(tweetMessage)">Post tweet</button>-->
   <!--</form>-->
   <br/>
   <div>
@@ -49,6 +49,18 @@
       </tr>
     </table>
   </div>
+  <br/> {{viewingUser.username}}'s followers:<br/>
+  <table>
+    <tr *ngFor="let user of viewingUser.followers">
+      <td>{{user.username}}</td>
+    </tr>
+  </table>
+  <br/>following {{viewingUser.username}}:<br/>
+  <table>
+    <tr *ngFor="let user of viewingUser.following">
+      <td>{{user.username}}</td>
+    </tr>
+  </table>
 </div>
 <!--
   <a href="${request.contextPath}/faces/dashboard.xhtml?username=#{profileController.username}">My dashboard</a>
