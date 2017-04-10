@@ -17,25 +17,36 @@ export class UserService {
   }
 
   getAll(): Observable<User[]> {
-    console.log(this.http
-      .get(`${this.baseUrl}/users`, { headers: this.getHeaders() }));
     let users$ = this.http
       .get(`${this.baseUrl}/users`, { headers: this.getHeaders() })
       .map(mapUsers);
+    console.log("ALL USERS: " + users$);
     return users$;
   }
 
   getTweets(id: number): Observable<Tweet[]> {
-    console.log(this.http
-      .get(`${this.baseUrl}/users/` + id + `/tweets`, { headers: this.getHeaders() }));
     let tweets$ = this.http
       .get(`${this.baseUrl}/users/` + id + `/tweets`, { headers: this.getHeaders() })
       .map(mapTweets);
+    console.log("TWEETS: " + tweets$);
     return tweets$;
   }
 
-}
+  getFeed(id: number): Observable<Tweet[]> {
+    let tweets$ = this.http
+      .get(`${this.baseUrl}/users/` + id + `/feed`, { headers: this.getHeaders() })
+      .map(mapTweets);
+    console.log("FEED: " + tweets$);
+    return tweets$;
+  }
 
+
+
+
+
+
+
+}
 function mapUsers(response: Response): User[] {
   // extracts a list of entities from the Response
   return response.json()

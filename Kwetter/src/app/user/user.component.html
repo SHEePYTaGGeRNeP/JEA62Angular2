@@ -3,14 +3,15 @@
 </p>
 
 <div>
-  Click to load users <button (click)="loadUsers()">load</button><br/> {{userList | json}}
+  Click to load users <button (click)="loadUsers()">load</button><br/> {{userList}}
 </div>
 <h1>
   {{title}}
 </h1>
 
-<p>{{viewingUser.username}}</p>
-
+<div *ngIf="loaded">
+  <p>{{viewingUser.username}}</p>
+</div>
 
 <div>
   Click to load Tweets <button (click)="loadTweets()">load</button><br/> {{viewingTweets | json}}

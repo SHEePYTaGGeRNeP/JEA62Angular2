@@ -15,6 +15,13 @@ export class UserComponent {
 
   viewingUser: User;
   viewingTweets: Tweet[] = [];
+  viewingFeed: Tweet[] = [];
+
+  loaded: boolean = false;
+
+  ngOnInit() {
+    this.loadUsers();
+  }
 
   constructor(private UserService: UserService) {
   }
@@ -24,6 +31,7 @@ export class UserComponent {
       .subscribe(u => {
         this.userList = u;
         this.viewingUser = this.userList[0];
+        this.loadTweets();
       });
   }
 
@@ -31,7 +39,17 @@ export class UserComponent {
     if (this.viewingUser != null) {
       this.UserService.getTweets(this.viewingUser.id).subscribe(t => {
         this.viewingTweets = t;
-      })
+        this.loadFeed();
+      });
+    }
+  }
+
+  loadFeed() {
+    if (this.viewingUser != null) {
+      this.UserService.getFeed(this.viewingUser.id).subscribe(t => {
+        this.viewingFeed = t;
+        this.loaded = true;
+      });
     }
   }
 }
