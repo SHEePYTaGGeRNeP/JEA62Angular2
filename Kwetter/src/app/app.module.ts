@@ -7,7 +7,7 @@ import { UserComponent } from "app/user/user.component";
 import { routes } from "app/app.routes";
 import { AppComponent } from "app/app.component";
 import { TestComponent } from './test/test.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +20,8 @@ import { TestComponent } from './test/test.component';
     HttpModule,
     RouterModule.forRoot(routes, {
       useHash: true
-    })
+    }),
+    ReactiveFormsModule
   ],
   providers: [UserComponent, TestComponent],
   bootstrap: [AppComponent]

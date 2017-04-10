@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { UserService } from "app/user.service";
 import { User } from "app/user";
@@ -19,12 +20,23 @@ export class UserComponent {
 
   loaded: boolean = false;
 
+  tweetForm: FormGroup;
   ngOnInit() {
     this.loadUsers();
   }
 
   constructor(private UserService: UserService) {
+    // this.tweetForm = new FormGroup({
+    //   tweet: new FormControl('', [Validators.required]) // initial value
+    // });
   }
+
+
+  postTweet(tweetMessage : string) {
+    console.log("tweetmessage: "+ tweetMessage);
+    this.UserService.postTweet(this.viewingUser.id, tweetMessage).subscribe(r => this.loadTweets());
+  }
+
 
   loadUsers() {
     this.UserService.getAll()

@@ -1,20 +1,54 @@
-<p>
-  user works! Hello from the user.component.html
-</p>
-
-<div>
-  Click to load users <button (click)="loadUsers()">load</button><br/> {{userList}}
-</div>
-<h1>
-  {{title}}
-</h1>
-
 <div *ngIf="loaded">
-  <p>{{viewingUser.username}}</p>
-</div>
+  <h1>{{viewingUser.username}}</h1>
+  <br/>
 
-<div>
-  Click to load Tweets <button (click)="loadTweets()">load</button><br/> {{viewingTweets | json}}
+  <!--<form (ngSubmit)="postTweet()" [formGroup]="tweetForm">-->
+    <label for="inputTweet">Tweet:</label>
+    <input type="text" id="inputTweet" [(ngModel)]="tweetMessage">
+    <!--<div *ngIf="tweetForm.get('tweet').dirty &&
+      tweetForm.get('tweet').invalid">
+      This is invalid.
+    </div>-->
+    <button (click)="postTweet(tweetMessage)">Post tweet</button>
+    <!--<button [disabled]="tweetForm.invalid" (click)="postTweet(tweetMessage)">Post tweet</button>-->
+  <!--</form>-->
+  <br/>
+  <div>
+    {{viewingUser.username}}'s tweets:
+
+    <table>
+      <tr>
+        <td>Username</td>
+        <td>Date</td>
+        <td>Message</td>
+        <td>Rating</td>
+      </tr>
+      <tr *ngFor="let tweet of viewingTweets">
+        <td>{{tweet.poster.username}}</td>
+        <td>{{tweet.tweetDate}}</td>
+        <td>{{tweet.message}}</td>
+        <td>{{tweet.rating}}</td>
+      </tr>
+    </table>
+  </div>
+  <br/>
+  <div>
+    {{viewingUser.username}}'s feed:<br/>
+    <table>
+      <tr>
+        <td>Username</td>
+        <td>Date</td>
+        <td>Message</td>
+        <td>Rating</td>
+      </tr>
+      <tr *ngFor="let tweet of viewingFeed">
+        <td>{{tweet.poster.username}}</td>
+        <td>{{tweet.tweetDate}}</td>
+        <td>{{tweet.message}}</td>
+        <td>{{tweet.rating}}</td>
+      </tr>
+    </table>
+  </div>
 </div>
 <!--
   <a href="${request.contextPath}/faces/dashboard.xhtml?username=#{profileController.username}">My dashboard</a>

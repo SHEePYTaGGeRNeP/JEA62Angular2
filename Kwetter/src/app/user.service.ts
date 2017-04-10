@@ -16,6 +16,12 @@ export class UserService {
     return headers;
   }
 
+  private getPostHeaders() {
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json');
+    return headers;
+  }
+
   getAll(): Observable<User[]> {
     let users$ = this.http
       .get(`${this.baseUrl}/users`, { headers: this.getHeaders() })
@@ -40,6 +46,14 @@ export class UserService {
     return tweets$;
   }
 
+  postTweet(posterId: number, message: string): Observable<boolean> {
+    console.log(posterId + " " + message);
+    return this.http.post(`${this.baseUrl}/tweets`, { "posterId": posterId, "message": message }, { headers: this.getPostHeaders() }).map(r => {
+      console.log(r);
+      return true;
+    });
+  }
+
 
 
 
@@ -49,15 +63,13 @@ export class UserService {
 }
 function mapUsers(response: Response): User[] {
   // extracts a list of entities from the Response
-  return response.json()
-    .map(toUser);
+  return response.json().map(toUser);
 }
 
 
 function mapTweets(response: Response): Tweet[] {
   // extracts a list of entities from the Response
-  return response.json()
-    .map(toTweet);
+  return response.json().map(toTweet);
 }
 
 function mapUser(response: Response): User {
