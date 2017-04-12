@@ -41,7 +41,10 @@ export class UserComponent {
 
   followUser(thisUser: number, userToFollow: number) {
     console.log(thisUser + " following: " + userToFollow);
-    this.UserService.followUser(thisUser, userToFollow).subscribe(r => this.reloadCurrentUser());
+    this.UserService.followUser(thisUser, userToFollow).subscribe(r => {
+      this.reloadCurrentUser();
+      this.loadFeed();
+    });
   }
 
   addFollowButton(id: number): boolean {
@@ -51,7 +54,7 @@ export class UserComponent {
       console.log(fol);
       console.log("compare " + fol.id + " == " + id);
       if (fol.id == id) {
-        console.log('set to false');
+        console.log('set to  false');
         result = false;
       }
     });
