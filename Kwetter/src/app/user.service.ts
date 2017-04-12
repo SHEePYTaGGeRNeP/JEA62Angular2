@@ -22,12 +22,21 @@ export class UserService {
     return headers;
   }
 
-  getAll(): Observable<User[]> {
+  getAllUsers(): Observable<User[]> {
     let users$ = this.http
       .get(`${this.baseUrl}/users`, { headers: this.getHeaders() })
       .map(mapUsers);
     console.log("ALL USERS: " + users$);
     return users$;
+  }
+
+
+  getUser(id: number): Observable<User> {
+    let user$ = this.http
+      .get(`${this.baseUrl}/users/${id}`, { headers: this.getHeaders() })
+      .map(mapUser);
+    console.log("CURRENT USERS: " + user$);
+    return user$;
   }
 
   getTweets(id: number): Observable<Tweet[]> {
@@ -54,7 +63,19 @@ export class UserService {
     });
   }
 
+  likeTweet(tweetId: number, value: number): Observable<boolean> {
+    return this.http.put(`${this.baseUrl}/tweets/${tweetId}/rate/${value}`, { headers: this.getPostHeaders() }).map(r => {
+      console.log(r);
+      return true;
+    });
+  }
 
+  followUser(thisUser: number, userToFollow: number): Observable<boolean> {
+    return this.http.put(`${this.baseUrl}/users/${thisUser}/follow/${userToFollow}`, { headers: this.getPostHeaders() }).map(r => {
+      console.log(r);
+      return true;
+    });
+  }
 
 
 

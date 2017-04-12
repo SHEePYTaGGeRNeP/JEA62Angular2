@@ -34,12 +34,53 @@ export class UserComponent {
     this.UserService.postTweet(this.viewingUser.id, tweetMessage).subscribe(r => this.loadTweets());
   }
 
+  likeTweet(tweetId: number, value: number) {
+    console.log("liking tweet: " + tweetId);
+    this.UserService.likeTweet(tweetId, value).subscribe(r => this.loadFeed());
+  }
+
+  followUser(thisUser: number, userToFollow: number) {
+    console.log(thisUser + " following: " + userToFollow);
+    this.UserService.followUser(thisUser, userToFollow).subscribe(r => this.reloadCurrentUser());
+  }
+
+  addFollowButton(id: number): boolean {
+    console.log("- - - - - - - addbutton: " + id);
+    let result: boolean = true;
+    this.viewingUser.following.forEach((fol) => {  // foreach statement
+      console.log(fol);
+      console.log("compare " + fol.id + " == " + id);
+      if (fol.id == id) {
+        console.log('set to false');
+        result = false;
+      }
+    });
+
+    // for (let fol of this.viewingUser.following) {
+    //   console.log(fol);
+    //   //console.log("following me " + fol.username);
+    //   if (fol.id = id) {
+    //     //console.log("return false for " + fol.username);
+    //     return false;
+    //   }
+    // }
+    console.log("return " + result);
+    return result;
+  }
+
   loadUsers() {
-    this.UserService.getAll()
+    this.UserService.getAllUsers()
       .subscribe(u => {
         this.userList = u;
         this.viewingUser = this.userList[getRandomInt(0, this.userList.length - 1)];
         this.loadTweets();
+      });
+  }
+
+  reloadCurrentUser() {
+    this.UserService.getUser(this.viewingUser.id)
+      .subscribe(u => {
+        this.viewingUser = u;
       });
   }
 

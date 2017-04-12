@@ -1,5 +1,8 @@
 <div *ngIf="loaded">
   <h1>{{viewingUser.username}}</h1>
+  <p>Bio:{{viewingUser.bio}}</p>
+  <p>Location:{{viewingUser.location}}</p>
+  <p>Website: <a href="{{viewingUser.website}}">{{viewingUser.website}}</a></p>
   <br/>
 
   <!--<form (ngSubmit)="postTweet()" [formGroup]="tweetForm">-->
@@ -46,19 +49,24 @@
         <td>{{tweet.tweetDate}}</td>
         <td>{{tweet.message}}</td>
         <td>{{tweet.rating}}</td>
+        <td><button (click)="likeTweet(tweet.id, 1)">Like</button></td>
+        <td><button (click)="likeTweet(tweet.id, -1)">Dislike</button></td>
       </tr>
     </table>
   </div>
   <br/> {{viewingUser.username}}'s followers:<br/>
   <table>
     <tr *ngFor="let user of viewingUser.followers">
-      <td>{{user.username}}</td>
+      <td>{{user.username}} {{user.id}}</td>
+      <div *ngIf="addFollowButton(user.id)">
+        <td><button (click)="followUser(viewingUser.id, user.id)">Follow</button></td>
+      </div>
     </tr>
   </table>
-  <br/>following {{viewingUser.username}}:<br/>
+  <br/>following:<br/>
   <table>
     <tr *ngFor="let user of viewingUser.following">
-      <td>{{user.username}}</td>
+      <td>{{user.username}} {{user.id}}</td>
     </tr>
   </table>
 </div>
