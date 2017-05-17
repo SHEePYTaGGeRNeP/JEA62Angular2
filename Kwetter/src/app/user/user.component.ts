@@ -48,13 +48,9 @@ export class UserComponent {
   }
 
   addFollowButton(id: number): boolean {
-    console.log("- - - - - - - addbutton: " + id);
     let result: boolean = true;
     this.viewingUser.following.forEach((fol) => {  // foreach statement
-      console.log(fol);
-      console.log("compare " + fol.id + " == " + id);
       if (fol.id == id) {
-        console.log('set to  false');
         result = false;
       }
     });

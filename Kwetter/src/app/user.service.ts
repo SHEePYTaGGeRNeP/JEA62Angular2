@@ -7,7 +7,9 @@ import { Tweet } from "app/tweet";
 
 @Injectable()
 export class UserService {
-  private baseUrl: string = 'http://localhost:40629/MavenProject-web/api';
+  private baseUrl: string = 'http://localhost:8080/MavenProject-web/api';
+  private baseUrlMicro: string = 'http://localhost:37762/api/Tweets';
+
   constructor(private http: Http) { }
 
   private getHeaders() {
@@ -26,7 +28,6 @@ export class UserService {
     let users$ = this.http
       .get(`${this.baseUrl}/users`, { headers: this.getHeaders() })
       .map(mapUsers);
-    console.log("ALL USERS: " + users$);
     return users$;
   }
 
@@ -40,10 +41,21 @@ export class UserService {
   }
 
   getTweets(id: number): Observable<Tweet[]> {
+    console.log("mapping normal tweets");
     let tweets$ = this.http
       .get(`${this.baseUrl}/users/` + id + `/tweets`, { headers: this.getHeaders() })
       .map(mapTweets);
-    console.log("TWEETS: " + tweets$);
+    
+    // DOESNT GET CALLED
+    console.log("mapping micro tweets " + `${this.baseUrlMicro}/By/`  + id);
+    let tweets2$ = this.http
+      .get(`${this.baseUrlMicro}/` + id, { headers: this.getHeaders() })
+      .map(mapTweets);
+    
+    console.log("MICRO TWEETS: ");
+    console.log(tweets2$);
+    tweets$.merge(tweets2$);
+    console.log("MERGED: " + tweets$);
     return tweets$;
   }
 
@@ -51,7 +63,6 @@ export class UserService {
     let tweets$ = this.http
       .get(`${this.baseUrl}/users/` + id + `/feed`, { headers: this.getHeaders() })
       .map(mapTweets);
-    console.log("FEED: " + tweets$);
     return tweets$;
   }
 
@@ -90,6 +101,7 @@ function mapUsers(response: Response): User[] {
 
 function mapTweets(response: Response): Tweet[] {
   // extracts a list of entities from the Response
+  console.log(response);
   return response.json().map(toTweet);
 }
 
@@ -109,7 +121,7 @@ function toUser(data: any): User {
     followers: data.followers,
     following: data.following
   });
-  console.log('Parsed entity:', User);
+  console.log('Parsed user:', User);
   return User;
 }
 
@@ -125,6 +137,6 @@ function toTweet(data: any): Tweet {
     tags: data.tags,
     tweetDate: data.tweetdate
   });
-  console.log('Parsed entity:', Tweet);
+  console.log('Parsed tweet:', Tweet);
   return Tweet;
 }
