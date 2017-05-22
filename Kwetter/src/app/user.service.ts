@@ -49,12 +49,12 @@ export class UserService {
     // DOESNT GET CALLED
     console.log("mapping micro tweets " + `${this.baseUrlMicro}/By/`  + id);
     let tweets2$ = this.http
-      .get(`${this.baseUrlMicro}/` + id, { headers: this.getHeaders() })
+      .get(`${this.baseUrlMicro}/by/` + id, { headers: this.getHeaders() })
       .map(mapTweets);
     
     console.log("MICRO TWEETS: ");
     console.log(tweets2$);
-    tweets$.merge(tweets2$);
+    tweets$ = tweets$.concat(tweets2$);
     console.log("MERGED: " + tweets$);
     return tweets$;
   }
