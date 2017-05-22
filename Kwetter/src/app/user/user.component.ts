@@ -63,7 +63,6 @@ export class UserComponent {
     //     return false;
     //   }
     // }
-    console.log("return " + result);
     return result;
   }
 
